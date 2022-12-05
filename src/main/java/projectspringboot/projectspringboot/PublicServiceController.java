@@ -40,26 +40,44 @@ public class PublicServiceController {
         
     }
     
+    //DELETE
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable("id") String id){
         productRepo.remove(id);
         return new ResponseEntity<>("Product is deleted successfully", HttpStatus.OK);
     }
     
+    //PUT
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateProduct(@PathVariable("id") String id, @RequestBody Product product){
-        productRepo.remove(id);
-        product.setId(id);
-        productRepo.put(id, product);
-        return new ResponseEntity<>("Product is update successfully", HttpStatus.OK);
+        //keadaan saat id tidak dapat ditemukan, maka data tidak bisa di update
+        if(!productRepo.containsKey(id)){
+            return new ResponseEntity<>("Tidak ada product key", HttpStatus.NOT_FOUND);
+        }
+        //keadaan saat id sama, maka data dapat di update
+        else{
+            productRepo.remove(id);
+            product.setId(id);
+            productRepo.put(id, product);
+            return new ResponseEntity<>("Product is update successfully", HttpStatus.OK);  
+        }
     }
     
+    //POST
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<Object> createProduct(@RequestBody Product product){
-        productRepo.put(product.getId(), product);
-        return new ResponseEntity<>("Product is created successfuly", HttpStatus.CREATED);
+        //keaadan saat id yang sama, maka tidak bisa membuat id yang sama
+        if(productRepo.containsKey(product.getId())){
+            return new ResponseEntity<>("Produk key tidak boleh sama", HttpStatus.OK);
+        }
+        //keadaan saat id yang berbeda/belum pernah dibuat, maka dapat membuat id baru
+        else{
+            productRepo.put(product.getId(), product);
+            return new ResponseEntity<>("Product is created successfuly", HttpStatus.CREATED);
+        }
     }
     
+    //GET
     @RequestMapping(value = "/products")
     public ResponseEntity<Object> getProduct(){
         return new ResponseEntity<>(productRepo.values(), HttpStatus.OK);
