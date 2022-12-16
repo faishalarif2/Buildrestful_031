@@ -11,32 +11,32 @@ package model;
 public class Product {
     private String id;
     private String name;
-    private int price;
-    private double disc;
-    private int total;
+    private Double price;
+    private Integer disc;
+    private Double total;
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public double getDisc(double d) {
+    public Integer getDisc() {
         return disc;
     }
 
-    public void setDisc(double disc) {
+    public void setDisc(Integer disc) {
         this.disc = disc;
     }
 
-    public int getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal() {
-        this.total = (int) (price - price * disc);
+    public void setTotal(Double total) {
+        this.total = total;
     }
     
 

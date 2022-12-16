@@ -28,13 +28,13 @@ public class PublicServiceController {
         honey.setName("Honey");
         //menambahkan set harga
         //set price
-        honey.setPrice(20000);
+        honey.setPrice(20000.0);
         //menambahkan set diskon
         //set disc
-        honey.setDisc(0.10);
+        honey.setDisc(10);
         //menambahkan untuk menghitung total harga
         //set total
-        honey.setTotal();
+        honey.setTotal(honey.getPrice()-(honey.getPrice()*honey.getDisc()/100));
         productRepo.put(honey.getId(), honey);
     
         Product almond = new Product();
@@ -42,13 +42,13 @@ public class PublicServiceController {
         almond.setName("Almond");
         //menambahkan set harga
         //set price
-        almond.setPrice(25000);
+        almond.setPrice(25000.0);
         //menambahkan set diskon
         //set disc
-        almond.setDisc(0.10);
+        almond.setDisc(10);
         //menambahkan untuk menghitung total harga
         //set total
-        almond.setTotal();
+        almond.setTotal(almond.getPrice()-(almond.getPrice()*almond.getDisc()/100));
         productRepo.put(almond.getId(), almond);
     }
     
@@ -68,6 +68,8 @@ public class PublicServiceController {
         }
         //keadaan saat id sama, maka data dapat di update
         else{
+            //menghitung total diskon harga
+            product.setTotal(product.getPrice()-(product.getPrice()*product.getDisc())/100);
             productRepo.remove(id);
             product.setId(id);
             productRepo.put(id, product);
@@ -84,6 +86,8 @@ public class PublicServiceController {
         }
         //keadaan saat id yang berbeda/belum pernah dibuat, maka dapat membuat id baru
         else{
+            //menghitung total diskon harga
+            product.setTotal(product.getPrice()-(product.getPrice()*product.getDisc())/100);
             productRepo.put(product.getId(), product);
             return new ResponseEntity<>("Product is created successfuly", HttpStatus.CREATED);
         }
