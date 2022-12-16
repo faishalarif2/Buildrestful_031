@@ -26,18 +26,30 @@ public class PublicServiceController {
         Product honey = new Product();
         honey.setId("1");
         honey.setName("Honey");
+        //menambahkan set harga
+        //set price
+        honey.setPrice(20000);
+        //menambahkan set diskon
+        //set disc
+        honey.setDisc(0.10);
+        //menambahkan untuk menghitung total harga
+        //set total
+        honey.setTotal();
         productRepo.put(honey.getId(), honey);
-        
+    
         Product almond = new Product();
         almond.setId("2");
         almond.setName("Almond");
+        //menambahkan set harga
+        //set price
+        almond.setPrice(25000);
+        //menambahkan set diskon
+        //set disc
+        almond.setDisc(0.10);
+        //menambahkan untuk menghitung total harga
+        //set total
+        almond.setTotal();
         productRepo.put(almond.getId(), almond);
-        
-        
-        
-        
-        
-        
     }
     
     //DELETE
